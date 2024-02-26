@@ -32,8 +32,8 @@ This project is an engineering calculator developed using the Qt framework versi
 
 ## Authors
 
-This project is developed by [Rustam Ohli].
+This project is developed by Rustam Ohli.
 
 ## License
 
-This project is licensed under the [MIT].
+This project is licensed under the MIT.
