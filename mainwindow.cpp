@@ -4,7 +4,13 @@
 #include <QLabel>
 #include <QString>
 #include <QMessageBox>
+
+
 #include <cmath>
+
+
+#define PI 3.1415926535
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,23 +19,36 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 }
 
+
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-int VariablesConvert(int& X, int& Y, Ui::MainWindow *ui)
+
+int MainWindow::VariablesConvert(int& X, int& Y)
 {
-        QString StrX = ui->EnterX->text();
-        QString StrY = ui->EnterY->text();
-        X = StrX.toInt();
-        Y = StrY.toInt();
+    QString StrX = ui->EnterX->text();
+    QString StrY = ui->EnterY->text();
+    bool ok;
+    X = StrX.toInt(&ok);
+    if (!ok) {
+        QMessageBox::critical(this, "Input Error", "Please enter a valid value for X");
+        return 1; 
+    }
+    Y = StrY.toInt(&ok);
+    if (!ok) {
+        QMessageBox::critical(this, "Input Error", "Please enter a valid value for Y");
+        return 1;
+    }
+    return 0;
 }
+
 
 void MainWindow::on_plus_clicked()
 {
     int X, Y;
-    VariablesConvert(X, Y, ui);
+    if (VariablesConvert(X, Y) != 0) return; 
     ui->ResultLabel->setText(QString::number(X + Y));
 }
 
@@ -149,11 +168,9 @@ void MainWindow::on_Sqrt_clicked()
     ui->ResultLabel->setText(QString::number(sqrt(X)));
 }
 
+
 void MainWindow::on_Pi_clicked()
 {
-    ui->ResultLabel->setText("3.14");
+    ui->ResultLabel->setText(QString::number(PI));
 }
-
-
-
 
